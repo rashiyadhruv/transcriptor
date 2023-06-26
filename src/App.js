@@ -21,6 +21,8 @@ function App() {
   const [youtubeLink, setYoutubeLink] = useState("");
   const [transcript, setTranscript] = useState("");
 
+  var fileDownload = require("js-file-download");
+
   const handleLinkChange = (e) => {
     setYoutubeLink(e.target.value);
   };
@@ -35,6 +37,10 @@ function App() {
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const handleDownload = async () => {
+    fileDownload(transcript, "transcript.txt");
   };
 
   return (
@@ -68,8 +74,18 @@ function App() {
         readOnly
         w="80%"
         size="lg"
-        h="500px"
+        h="460px"
       />{" "}
+      <Button
+        onClick={handleDownload}
+        colorScheme="teal"
+        mt={4}
+        w="80%"
+        size="lg"
+        disabled={transcript === ""}
+      >
+        Download
+      </Button>
     </Flex>
   );
 }
